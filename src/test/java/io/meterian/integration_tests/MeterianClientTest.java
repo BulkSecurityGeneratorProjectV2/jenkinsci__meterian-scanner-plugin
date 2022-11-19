@@ -10,6 +10,7 @@ import static junit.framework.TestCase.fail;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import io.meterian.jenkins.core.Meterian;
@@ -33,7 +34,7 @@ public class MeterianClientTest {
 
     @Before
     public void setup() throws IOException {
-        logFile = File.createTempFile("jenkins-logger-", Long.toString(System.nanoTime()));
+        logFile = Files.createTempFile("jenkins-logger-", Long.toString(System.nanoTime())).toFile();
         jenkinsLogger = new PrintStream(logFile);
         log.info("Jenkins log file: " + logFile.toPath().toString());
 
@@ -53,7 +54,7 @@ public class MeterianClientTest {
     @Test
     public void givenConfiguration_whenMeterianClientIsRun_thenItShouldNotThrowException() throws IOException {
         // Given: we are setup to run the meterian client against a repo that has vulnerabilities
-        File logFile = File.createTempFile("jenkins-logger", Long.toString(System.nanoTime()));
+        File logFile = Files.createTempFile("jenkins-logger", Long.toString(System.nanoTime())).toFile();
         PrintStream jenkinsLogger = new PrintStream(logFile);
         MeterianPlugin.Configuration configuration = testManagement.getConfiguration();
 

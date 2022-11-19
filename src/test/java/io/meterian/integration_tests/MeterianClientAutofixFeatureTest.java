@@ -19,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -46,7 +47,7 @@ public class MeterianClientAutofixFeatureTest {
 
     @Before
     public void setup() throws IOException {
-        logFile = File.createTempFile("jenkins-logger-", Long.toString(System.nanoTime()));
+        logFile = Files.createTempFile("jenkins-logger-", Long.toString(System.nanoTime())).toFile();
         jenkinsLogger = new PrintStream(logFile);
         log.info("Jenkins log file: " + logFile.toPath().toString());
 
